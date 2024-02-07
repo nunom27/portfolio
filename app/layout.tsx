@@ -22,7 +22,7 @@ export default function RootLayout({
           <Link className="ring-2 ring-gray-600 shadow-md hover:ring-gray-300 duration-300 transition  p-1 rounded-md" href="/">Home</Link>
           <Link href="/about">About</Link>
         </nav>
-        <ul className="background">
+        {/* <ul className="background">
           <li></li>
           <li></li>
           <li></li>
@@ -33,7 +33,7 @@ export default function RootLayout({
           <li></li>
           <li></li>
           <li></li>
-        </ul>
+        </ul> */}
         {children}
       </body>
     </html>

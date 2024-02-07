@@ -1,15 +1,36 @@
+'use client'
+
+import { Canvas } from "@react-three/fiber";
+import Projects from "./components/Projects";
+import { useEffect, useState } from "react";
+import { Euler } from "three";
 
 export default function Home() {
+  const [rotations, setRotation] = useState(new Euler(0, 45, 45));
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRotation(prevRotations => new Euler(prevRotations.x, prevRotations.y + 0.1, prevRotations.z));
+    }, 100);
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [rotations])
+  
+
   return (
     <main className="flex min-h-screen flex-col items-start justify-between p-20">
-      <div className="isolate aspect-video w-1/2 rounded-xl bg-white/20 shadow-lg backdrop-blur-md ring-1 ring-black/5">
-        <h1 className="text-white font-bold text-3xl py-2 px-4">Projects</h1>
-        <ul className="grid grid-cols-1 gap-4 p-4">
-          <li className="bg-white/15 rounded-lg p-4 shadow-lg ring-1 ring-black/5">
-            <h2 className="text-white font-bold text-2xl">Project 1</h2>
-            <p className="text-white">Description</p>
-          </li>
-        </ul>
+      <Projects />
+      <div id="canvas-container" className="w-full h-full">
+        <Canvas>
+          <ambientLight intensity={0.1} />
+          <directionalLight color="red" position={[0, 0, 5]} />
+          <mesh rotation={rotations}>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color="hotpink" />
+          </mesh>
+        </Canvas>
       </div>
     </main>
   );
